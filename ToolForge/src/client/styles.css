@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #060913;
+    color: #f1f5f9;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom Cyberpunk Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #060913;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0ea5e9;
+}
+
+/* Cyberpunk Glows & Glass Panels */
+.cyber-panel {
+  background: rgba(10, 15, 29, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(14, 165, 233, 0.15);
+}
+
+.cyber-panel:hover {
+  border-color: rgba(14, 165, 233, 0.45);
+  box-shadow: 0 0 25px rgba(14, 165, 233, 0.08);
+}
+
+.neon-text-cyan {
+  color: #00e5ff;
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+}
+
+.neon-text-magenta {
+  color: #ff0055;
+  text-shadow: 0 0 12px rgba(255, 0, 85, 0.5);
+}
+
+.neon-text-amber {
+  color: #fcee0a;
+  text-shadow: 0 0 12px rgba(252, 238, 10, 0.5);
+}
+
+/* Cyberpunk Chamfered Corners */
+.cyber-cut {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% 100%,
+    14px 100%,
+    0 calc(100% - 14px)
+  );
+}
+
+.cyber-cut-sm {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% 100%,
+    8px 100%,
+    0 calc(100% - 8px)
+  );
+}
+
+/* CRT Scanlines Overlay */
+.cyber-scanlines::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  z-index: 9999;
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+@keyframes scan-bar {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.cyber-scanlines::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; height: 10%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 229, 255, 0.03), transparent);
+  animation: scan-bar 10s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Cyberpunk Glitch & Pulse Animations */
+@keyframes cyber-pulse {
+  0%, 100% { opacity: 0.9; filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.3)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 16px rgba(0, 229, 255, 0.6)); }
+}
+
+.animate-cyber-pulse {
+  animation: cyber-pulse 3s infinite ease-in-out;
+}
+
+/* Cyber Grid Background */
+.cyber-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(14, 165, 233, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* PlacementForge: Non-Clipping ATS Print & PDF Export Rules                  */
+/* -------------------------------------------------------------------------- */
+@page {
+  size: A4 portrait;
+  margin: 10mm 12mm;
+}
+
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  nav, footer, .no-print, [role="navigation"], .toast-container {
+    display: none !important;
+  }
+
+  /* Unconstrain grid and parent layout wrappers during print */
+  main, .grid, [class*="col-span"], .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .print-area {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .resume-doc {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* Prevent awkward mid-element page breaks */
+  .resume-section-item,
+  .resume-section-title,
+  .avoid-page-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Ensure links are readable on paper */
+  .resume-doc a {
+    color: #0f172a !important;
+    text-decoration: underline !important;
+  }
+}
+
